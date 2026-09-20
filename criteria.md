@@ -19,8 +19,7 @@ pipeline earns credit; *"80% seemed reasonable"* does not.
 
 ## 1. Retrieved chunks contain the answer
 
-For at least 4 of my 5 test questions, the retrieved chunks include one that
-contains the answer.
+>For at least 4 of my 5 test questions, the retrieved chunks include one that contains the answer.
 
 **Why this target:**
 
@@ -29,7 +28,7 @@ contains the answer.
 
 ## 2. Every answer names a source
 
-Every answer the system produces names at least one source document.
+>Every answer the system produces names at least one source document.
 
 **Why this target:**
 
@@ -38,9 +37,8 @@ Every answer the system produces names at least one source document.
 
 ## 3. The relevance gate stops out-of-corpus questions
 
-When I ask a question my documents clearly don't cover, the relevance gate
-stops it and the system returns "I don't have enough information about that" —
-in at least 4 of 5 tries.
+>When I ask a question my documents clearly don't cover, the relevance gate
+>stops it and the system returns "I don't have enough information about that" — in at least 4 of 5 tries.
 
 > for after the update 
 >In corpus: 0.286, 0.453, 0.458, 0.557, 0.590

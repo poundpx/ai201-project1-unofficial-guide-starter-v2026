@@ -171,18 +171,15 @@ between the two groups. Your cutoff goes in that gap.
 
 ## How I Used AI
 
-<!-- Two specific moments. For each: what you asked for, what came back, and
-     what you changed about it.
-
-     "I asked Claude to write the chunking function from my notes. It ignored
-     the overlap, so I added that myself" is the level of detail we're after.
-     "I used AI to help me code" is not.
-
-     Milestone 5. -->
-
 **1.**
+     For this work i have been used ai to keep track for me on my progress because there so many files that am not well familiarize with it and it very usefull to be my mentor and guide me through each question with doubtfull instead of giving me helping hand it only give hint and lets me do all the step by myself and drive me to the answer i feel like it was right. This give me room that i want to see more in other way. The way i ask for it to do many thing for me like generate path and guide but it only help on exploring instead so i have to stick with one path and drive up onto decision all by my self 
+
+     moment 1 : when i stumble on expecting and i though it mean like what the ai going to answer back but those keyword never show up but just like expectation and i misunderstanding it my ai teacher clarify and walk me through which one with real evidence of what my llm output ask look like 
 
 **2.**
+     The real gem on this project that i can use ai to explore later after i have know the work flow what i would change next time is instead of lecturing me theres another ai serve as visualizer side by side that help me see what possibilities while drafting for answer instead.
+
+
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
