@@ -25,7 +25,7 @@
      questions your system answers. Write it for someone who has never seen
      this repo.
 
-The corpus i choose is advice thread and it mostly about life in campus
+> The corpus i choose is advice thread and it mostly about life in campus
 
 
      Milestone 5. -->
@@ -113,32 +113,61 @@ Empty office hours is the biggest unused resource here and I say that having was
 
 For each one, ask: could someone answer a question using only this,
 without reading what came before or after?
+
+## why?
+The starter's chunker made 26 chunks from my 23 documents.
+3 of them were fragments, the shortest being 2 characters.
+My chunker keeps each thread whole, so it makes 23 chunks with a shortest of 317 characters.
+reason being is these can have all important document inside so it feel whole it doesnt change much but as data expanding it could make more fragment and could be some missing case 
+ 
+
 ## Sample Answer
 
-<!-- One complete question and answer, pasted as text, with the source line
-     visible. Milestone 4. -->
+ python app.py ask "which meal plan tier should I get?"
+  (best distance 0.286, cutoff 0.65)
 
-**Question:**
+If your building has a kitchen (like Fenwick, which has kitchenettes), you should go down a tier and cook two or three nights. Everywhere else, you should get the middle tier. (Source: thread_meal_plan_tier.txt)
 
-**Answer:**
-
-```
-```
+Sources retrieved: thread_first_year_regret.txt, thread_laptop_specs.txt, thread_meal_plan_tier.txt, thread_pass_fail.txt, thread_study_spots.txt
 
 **My relevance cutoff:**
 
-<!-- The number you set in config.py, and how you got there.
+>my recent cut off increase from 0.6 to 0.65 because i feel like this would be bit closer and give some room for right answer because if we look in case of of answer of textbook it very close like .59 so .65 is still within range and cutoff not near it too 
+/*
+> python app.py retrieve "is it ok to use a previous edition textbook for a math class?"
 
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
+>Question: is it ok to use a previous edition textbook for a math class?
 
-     Milestone 4. -->
+#   distance   source                           preview
+----------------------------------------------------------------------------------------------------
+1   0.5896     thread_textbook_editions.txt     THREAD: Does the edition of the textbook matter?  --...
+2   0.6715     thread_printing.txt              THREAD: Is the printing quota enough?  --- reply 1 (...
+3   0.6983     thread_first_gen.txt             THREAD: Anything specific for first-generation stude...
+4   0.7445     thread_late_work.txt             THREAD: What actually happens if you hand something ...
+5   0.7951     thread_group_project.txt         THREAD: How do you handle a group project where some...
+
+Gate: best distance 0.590 is under the 0.65 cutoff
+
+Lower is better. 0.3 is a close match, 0.9 is unrelated.
+Milestone 4: run your five questions, then the five in OUT_OF_SCOPE
+that your documents clearly don't cover, and look for the gap
+between the two groups. Your cutoff goes in that gap.
+(.venv) PS C:\Users\Poundpx\CodepathAI201\Codepath201x2\ai201-project1-unofficial-guide-starter-v2026> 
+*/
+
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| which meal plan tier should I get? | Yes | 0.286 |
+| is there an app for the laundry machines? | Yes | 0.453 |
+| is biking worth it in the winter? | Yes | 0.458 |
+| is it common to go into office hours just to talk? | Yes | 0.557 |
+| is it ok to use a previous edition textbook for a math class? | Yes | 0.590 |
+| What is the recommended dosage of ibuprofen for a headache? | No | 0.828 |
+| How do I write a for loop in Rust? | No | 0.871 |
+| How do I change the oil in a diesel engine? | No | 0.930 |
+| What is the capital of Mongolia? | No | 0.948 |
+| Who won the 1994 World Cup? | No | 0.952 |
 
 ## How I Used AI
 

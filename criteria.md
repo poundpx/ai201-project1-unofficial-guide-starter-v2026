@@ -24,7 +24,7 @@ contains the answer.
 
 **Why this target:**
 
-> the reason why we allow one in five to missed is because our criteria for cutoff is to .6 my textbook question retrieves at 0.590, and my best question (meal plan) is at 0.286 — a wide spread, and textbook is the one I'd expect to miss.
+> the reason why we allow one in five to missed is because our criteria for cutoff is to .65 my textbook question retrieves at 0.590, and my best question (meal plan) is at 0.286 — a wide spread, and textbook is the one I'd expect to miss.
 ---
 
 ## 2. Every answer names a source
@@ -42,16 +42,16 @@ When I ask a question my documents clearly don't cover, the relevance gate
 stops it and the system returns "I don't have enough information about that" —
 in at least 4 of 5 tries.
 
-<!-- The five questions are the ones in `OUT_OF_SCOPE` at the bottom of
-     `questions.py`, and `run_eval.py` puts them through the gate and writes
-     what happened into your run log. Swap them for your own if you'd rather —
-     just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
+> for after the update 
+>In corpus: 0.286, 0.453, 0.458, 0.557, 0.590
+>Out of corpus: 0.828, 0.871, 0.930, 0.948, 0.952
+> we also extends the gap in between cutoff at 0.65 for some flexibility dues to one of our answer sit very near 0.6 and it is also hold a correct answer and for this extreme case even thought we extends it to 0.65 all the out of corpus still sit far away and thats why we could made a different without affecting too much as our data grew 
+
 
 **Why this target:**
-<!-- What did your distances look like when you set the cutoff in Milestone 4?
-     Was there a clean gap, or did the two groups overlap? -->
 
->      
+
+>  I kept 4 of 5 because my five out-of-scope questions were all obviously unrelated and refused easily, but a question closer to campus life could land between 0.65 and 0.828 and slip through.
 
 ---
 
