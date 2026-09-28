@@ -171,7 +171,7 @@ between the two groups. Your cutoff goes in that gap.
 
 ## How I Used AI
 
-1.
+1.(Unit 1)
      For this work i have been used ai to keep track for me on my progress because there so many files that am not well familiarize with it and it very usefull to be my mentor and guide me through each question with doubtfull instead of giving me helping hand it only give hint and lets me do all the step by myself and drive me to the answer i feel like it was right. This give me room that i want to see more in other way. The way i ask for it to do many thing for me like generate path and guide but it only help on exploring instead so i have to stick with one path and drive up onto decision all by my self 
 
      moment 1 : when i stumble on expecting and i though it mean like what the ai going to answer back but those keyword never show up but just like expectation and i misunderstanding it my ai teacher clarify and walk me through which one with real evidence of what my llm output ask look like 
@@ -180,7 +180,7 @@ between the two groups. Your cutoff goes in that gap.
      The real gem on this project that i can use ai to explore later after i have know the work flow what i would change next time is instead of lecturing me theres another ai serve as visualizer side by side that help me see what possibilities while drafting for answer instead.
 
 3. (Unit 2)
-     Used ai this unit mainly to help spot the pattern behind my two failing test questions instead of just guessing. It read the actual retrieved chunks and generated answers for both misses and pointed out they weren't the same kind of failure — one was my own typo in questions.py ("middles" vs "middle"), the other was the model actually dropping a real fact from the source chunk. That second one is what pointed me at GROUNDING_INSTRUCTION's "be brief" line in generate.py as the thing to change, rather than picking a fix at random. It also caught that scorer.py's original judge() function had its logic backwards (answer in expects instead of expects in answer), which was silently failing every single question before I even got real data to diagnose.
+     Used ai this unit mainly to help spot the pattern behind my two failing test questions instead of just guessing. It read the actual retrieved chunks and generated answers for both misses and pointed out they weren't the same kind of failure — one was my own typo in questions.py middles vs middle, the other was the model actually dropping a real fact from the source chunk. That second one is what pointed me at GROUNDING_INSTRUCTION's "be brief" line in generate.py as the thing to change, rather than picking a fix at random. It also caught that scorer.py's original judge() function had its logic backwards (answer in expects instead of expects in answer), which was silently failing every single question before I even got real data to diagnose.
 
 
 
