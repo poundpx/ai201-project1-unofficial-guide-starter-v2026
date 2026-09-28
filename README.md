@@ -2,16 +2,16 @@
 
 # Minh Nguyen - corpus : Advice_threads
 
-> **This file is your submission.** Fill it in as you go — most sections get
+> This file is your submission. Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
 >
-> How the starter works, and every command you'll need, is in `RUNNING.md`.
+> How the starter works, and every command you'll need, is in RUNNING.md.
 > Leave that file alone.
 >
-> **Paste everything as text.** No screenshots, no video. A typed table gets
+> Paste everything as text. No screenshots, no video. A typed table gets
 > full credit; a picture of the same table gets none.
 >
-> Delete these instruction blocks as you replace them. The `<!-- -->` comments
+> Delete these instruction blocks as you replace them. The <!-- --> comments
 > are notes to you and don't show up when the page renders — you can leave them
 > or remove them.
 
@@ -32,8 +32,8 @@
 
 ## Chunking Strategy
 
-**Chunk size: Thread length one per chunk**
-**Overlap: no in between thread**
+Chunk size: Thread length one per chunk
+Overlap: no in between thread
 
 ## Sample Chunks
 
@@ -130,7 +130,7 @@ If your building has a kitchen (like Fenwick, which has kitchenettes), you shoul
 
 Sources retrieved: thread_first_year_regret.txt, thread_laptop_specs.txt, thread_meal_plan_tier.txt, thread_pass_fail.txt, thread_study_spots.txt
 
-**My relevance cutoff:**
+My relevance cutoff:
 
 >my recent cut off increase from 0.6 to 0.65 because i feel like this would be bit closer and give some room for right answer because if we look in case of of answer of textbook it very close like .59 so .65 is still within range and cutoff not near it too 
 /*
@@ -171,13 +171,16 @@ between the two groups. Your cutoff goes in that gap.
 
 ## How I Used AI
 
-**1.**
+1.
      For this work i have been used ai to keep track for me on my progress because there so many files that am not well familiarize with it and it very usefull to be my mentor and guide me through each question with doubtfull instead of giving me helping hand it only give hint and lets me do all the step by myself and drive me to the answer i feel like it was right. This give me room that i want to see more in other way. The way i ask for it to do many thing for me like generate path and guide but it only help on exploring instead so i have to stick with one path and drive up onto decision all by my self 
 
      moment 1 : when i stumble on expecting and i though it mean like what the ai going to answer back but those keyword never show up but just like expectation and i misunderstanding it my ai teacher clarify and walk me through which one with real evidence of what my llm output ask look like 
 
-**2.**
+2.
      The real gem on this project that i can use ai to explore later after i have know the work flow what i would change next time is instead of lecturing me theres another ai serve as visualizer side by side that help me see what possibilities while drafting for answer instead.
+
+3. (Unit 2)
+     Used ai this unit mainly to help spot the pattern behind my two failing test questions instead of just guessing. It read the actual retrieved chunks and generated answers for both misses and pointed out they weren't the same kind of failure — one was my own typo in questions.py ("middles" vs "middle"), the other was the model actually dropping a real fact from the source chunk. That second one is what pointed me at GROUNDING_INSTRUCTION's "be brief" line in generate.py as the thing to change, rather than picking a fix at random. It also caught that scorer.py's original judge() function had its logic backwards (answer in expects instead of expects in answer), which was silently failing every single question before I even got real data to diagnose.
 
 
 
@@ -196,111 +199,143 @@ between the two groups. Your cutoff goes in that gap.
 
 ## Run Log — Before
 
-<!-- Your five criteria, three runs each. `python run_eval.py --label before`
-     runs the questions, puts the OUT_OF_SCOPE ones through the gate, and
-     writes it all into results/ for you. Targets come from criteria.md; the
-     verdict column is your call.
-
-     Criterion 3 is measured in one deterministic pass rather than three, so
-     the same number goes in all three run columns. That's correct, not lazy.
-
-     Milestone 1. -->
+python run_eval.py --label before
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 3/5 | 3/5 | 3/5 | MISSED |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Sampled chunks are complete threads | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Named source contains the stated fact | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
-<!-- Underneath, paste the REAL output for each criterion from one of your
-     runs — the actual text your system produced, not a description of it.
-     Name the file and function that produced it. -->
+ Note on scorer.py  the version in the repo before this unit had judge() written backwards
+if answer in expects checks whether the whole generated answer is literally a substring of
+ the one-word expects keyword (e.g. "salt"), which can never be true. It scored every single
+ question as a fail. I rewrote it to expects.strip().lower() in answer.lower() — does the
+ expected keyword show up in the answer — before any of the numbers above are real.
+
+Real output — run_once in run_eval.py, generation from generate.py::answer_from_chunks (before the fix):
+
+
+### what meal plan available? — run 1
+Best distance: 0.4626 (passed the gate)
+Sources retrieved: thread_first_year_regret.txt, thread_laundry_timing.txt, thread_meal_plan_tier.txt, thread_roommate_conflict.txt, thread_study_spots.txt
+
+Based on the provided documents, the meal plan options mentioned are the highest tier, the middle
+tier, and a lower tier for buildings with kitchenettes like Fenwick.
+
+Source: thread_meal_plan_tier.txt
+
+
+
+### is it common to go into office hours just to talk? — run 1
+Best distance: 0.5574 (passed the gate)
+Sources retrieved: thread_commuting.txt, thread_late_work.txt, thread_office_hours_etiquette.txt, thread_professor_email.txt, thread_sleep_schedule.txt
+
+Yes, it is completely normal to go to office hours with no specific question, such as saying you
+are following the lectures but do not feel like you understand the shape of it. This information
+comes from thread_office_hours_etiquette.txt.
+
 
 ## Verdicts
 
-<!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
-     matters most where it was close.
-
-     If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
-     The target has to hold, not show up occasionally.
-
-     Milestone 2. -->
-
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunk contains the answer | MISSED | 3/5 in all three runs, never once reaching 4/5. Consistent, not a fluke. |
+| 2 | Every answer names a source | MET | Every one of the 15 answers across 3 runs ended with an explicit Source: line. |
+| 3 | Gate stops out-of-corpus questions | MET | All 5 OUT_OF_SCOPE questions refused, distances 0.828–0.952, well clear of the 0.65 cutoff. |
+| 4 | Sampled chunks are complete threads | MET | Chunker keeps one whole thread per chunk (Milestone 3 change); sampling any 5 of the 23 chunks gives 5 complete threads. |
+| 5 | Named source contains the stated fact | MET | Checked each answer's cited file against what it claimed — the meal-plan tiers, the laundry-app quirk, the textbook numbering fact, the bike/salt fact, and the office-hours claim all match their cited thread. |
+
+The close call was #1. Read plainly: 3/5 stayed 3/5 across all three runs, so it's a real miss, not a target set too tight that got unlucky once.
 
 ## Diagnoses
 
-<!-- For each miss: which stage caused it, and how. The stage alone isn't
-     enough — you need the mechanism.
+Criterion 1 (retrieved chunk contains the answer) — MISSED, and it's two different things wearing the same "fail" label:
 
-     Not a diagnosis: "Question 3 didn't work."
-     A diagnosis:     "Question 3 asks about laundry costs. The answer is in
-                       one sentence that got split across two chunks, so
-                       neither chunk on its own contains it."
+- "what meal plan available?" — not a pipeline failure, a test-authoring bug. The retrieved
+  chunks always include thread_meal_plan_tier.txt, and the generated answer always says "the
+  middle tier" (all 3 runs). My expects keyword in questions.py is "middles" — a
+  typo for "middle" — so the literal-keyword scorer can never match it. The retrieval and
+  generation stages are both doing their job here; the miss is in my own test data. I'm leaving
+  the typo in place rather than quietly fixing it (see the "one rule about changing your system"
+  note — my test questions aren't part of the system I'm allowed to touch mid-unit), but it means
+  this question can never pass criterion 1 as currently written regardless of what the system does.
 
-     The five stages: loading → chunking → embedding → retrieval → generation.
+- "is it common to go into office hours just to talk?" — a real generation-stage failure. The
+  retrieved chunk (thread_office_hours_etiquette.txt) contains "They're usually empty," which is
+  the specific supporting detail my expects keyword ("empty") targets. Across all 3 runs before
+  the fix, the model's answer covered the "main" claim (going in with no question is normal) but
+  dropped that detail every time. The cause traces to GROUNDING_INSTRUCTION in generate.py:
+  "Be brief. Two or three sentences is usually enough." The model was told to compress, and
+  compressing a multi-fact thread into 2–3 sentences means picking the most salient claim and
+  cutting the rest — retrieval had the right chunk in hand the whole time.
 
-     Look for a pattern. If three misses all ask about numbers, that's one
-     problem, not three.
-
-     Missed nothing? Say so, then say honestly whether your targets were set
-     low, and which one you'd tighten and to what.
-
-     Milestone 3. -->
+Pattern across the two misses: retrieval is not the bottleneck (the correct source thread showed
+up in the top-5 for all 5 questions, all 3 runs). One miss is a bug in my own test data; the other
+is the prompt telling the model to be shorter than the source material supports.
 
 ## The Improvement
 
-**What I changed:**
+What I changed: In generate.py, replaced the grounding instruction's "Be brief. Two or
+three sentences is usually enough." with an instruction to include every distinct fact from the
+matching excerpt that bears on the question, explicitly ranking completeness over brevity.
 
-**Why I picked it:**
-
-<!-- Connect it to a specific diagnosis above in one sentence. If you can't,
-     you picked a fix because it sounded impressive. -->
+Why I picked it: It follows directly from the office-hours diagnosis above — the retrieved
+chunk already had the missing fact, so the fix belongs at generation, not retrieval or chunking.
 
 ### Run Log — After
 
-<!-- Same format, same five criteria, three runs each.
-     `python run_eval.py --label after` -->
-
+python run_eval.py --label after 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 4/5 | 4/5 | 4/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Sampled chunks are complete threads | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Named source contains the stated fact | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
-**Did it help?**
+Real output, same question, after the prompt change:
 
-<!-- Say plainly whether it did, and how you know. If it made things worse,
-     say that — a change that backfired, honestly reported, earns full credit
-     and is more interesting than one that worked. What matters is that you can
-     tell.
 
-     Milestone 4. -->
+### is it common to go into office hours just to talk? — run 3
+Based on the provided documents, going to office hours without a specific question is not weird,
+and it is the single most common thing first years get wrong (thread_office_hours_etiquette.txt).
+Additionally, office hours are usually empty, so you are doing the instructor a favor by turning
+up (thread_office_hours_etiquette.txt, thread_professor_email.txt). You can treat it as a standing
+appointment by going every week for a month until it stops feeling like a thing, and it is
+completely normal to say something like, "I'm following the lectures but I don't feel like I
+understand the shape of it" (thread_office_hours_etiquette.txt).
+
+
+Did it help? Yes, and precisely as the diagnosis predicted. The office-hours question went
+from fail/fail/fail to pass/pass/pass across all 3 runs — the "empty" detail now shows up every
+time. Criterion 1 moved from 3/5 (MISSED) to 4/5 (MET). The meal-plan question is still a fail in
+every run, which is expected: that miss was never a generation problem, so a generation-side fix
+correctly didn't touch it.
 
 ## What's Still Broken
 
-<!-- For each criterion still missed after your fix: what you'd do about it,
-     and why you stopped where you did.
-
-     "I ran out of time" is fine if it's true. Pretending nothing is left is
-     not.
-
-     Milestone 5. -->
+- Criterion 1 is technically MET now (4/5) but only because 4/5 is the target, not 5/5. The
+  meal-plan question will keep failing until questions.py's expects: "middles" is corrected to
+  "middle" — that's a one-line fix, but it's a change to test data, not to the system, so it's
+  out of scope for this unit's "one change" rule. Next unit (or right now, off the clock) I'd fix
+  the typo and re-run to confirm it's really 5/5.
+- The scorer is still a blunt instrument. It's an exact-substring keyword match against the
+  full generated answer. It works here because my keywords are short and specific, but a model that
+  says "the cost of the bike was about $120" instead of using my exact keyword would still fail
+  even with a perfectly correct answer. I didn't build anything smarter (e.g. an LLM-as-judge)
+  because the two failures I actually had were fully explained without needing one, and building
+  one un-diagnosed would have been solving a problem I hadn't shown I had.
 
 ## What I'd Do Differently
-
-<!-- Knowing what you know now — which of your five criteria would you write
-     differently, and why?
-
-     Milestone 5. -->
+Criterion 1's wording — "the retrieved chunks include one that contains the answer" — describes
+retrieval, but the only automatic way to check it (scorer.py::judge) actually inspects the
+generated answer, not the retrieved chunks in results. Those two things mostly agree, but they
+disagree exactly on the interesting cases: this unit's office-hours miss was really about
+generation dropping a fact retrieval had already found correctly. Next time I'd write two separate
+criteria — one that checks results directly for whether the answer text is present in a
+retrieved chunk (a true test of retrieval), and one that checks the final generated answer (a test
+of generation) — instead of one criterion that quietly conflates both stages and pointed me toward
+the wrong stage the first time I read the numbers.
